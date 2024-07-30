@@ -1,0 +1,110 @@
+@extends('layouts.app')
+
+@section('content')
+
+    <div class="container">
+
+    <form action="{{ route('admin.projects.update', $project) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input
+                    type="text"
+                    class="form-control @if ($errors->get('title')) is-invalid @endif"
+                    id="title"
+                    name="title"
+                    value="{{ old('title', $project->title) }}"
+                >
+                @if ($errors->get('title'))
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->get('title') as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea
+                    class="form-control @if ($errors->get('description')) is-invalid @endif"
+                    id="description"
+                    rows="3"
+                    name="description"
+                >{{ old('description', $project->description) }}</textarea>
+                @if ($errors->get('description'))
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->get('description') as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+            <div class="mb-3">
+                <label for="start_date" class="form-label">Start date</label>
+                <input
+                    type="text"
+                    class="form-control @if ($errors->get('start_date')) is-invalid @endif"
+                    id="start_date"
+                    name="start_date"
+                    value="{{ old('start_date', $project->start_date) }}"
+                >
+                @if ($errors->get('start_date'))
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->get('start_date') as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
+            <span>In Progress</span>
+            <div class="mb-3">
+                <input class="form-check-input" type="radio" name="in_progress" id="flexRadioDefault1" value="1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    SI
+                </label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="radio" name="in_progress" id="flexRadioDefault2" value="0">
+                <label class="form-check-label" for="flexRadioDefault2">
+                    NO
+                </label>
+            </div>
+            <div class="mb-3">
+                <label for="type" class="form-label">Type</label>
+                <select class="form-select" aria-label="Default select example" name="type_id">
+                    @foreach ($types as $type)
+                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="technology" class="form-label">Technology</label>
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    @foreach ($technologies as $technology)
+                        <input
+                            type="checkbox"
+                            class="btn-check"
+                            id="technology-{{ $technology->id }}"
+                            name="technology_id[]"
+                            value="{{ $technology->id }}"
+                            {{ $project->technologies->contains($technology) ? 'checked' : ''}}
+                        >
+                        <label class="btn btn-outline-primary" for="technology-{{ $technology->id }}">{{ $technology->name }}</label>
+                    @endforeach 
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-3 d-block">CREA</button>
+        </form>
+
+    </div>
+    
+@endsection
