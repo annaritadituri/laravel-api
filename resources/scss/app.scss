@@ -1,1 +1,84 @@
 @import "~bootstrap/scss/bootstrap";
+
+@import './partials/variables';
+@import './partials/mixins';
+@import './partials/components/buttons';
+
+body {
+    background-color: $color_gray;
+    color: $color_blue;
+}
+
+header {
+    background-image: linear-gradient(to bottom, #56608a, #647fa4, #789dbb, #92bcd1, #b2dbe6);
+
+    .color-green {
+        color: $color_light_green;
+    }
+    
+}
+
+.projects-table {
+    background-color: white;
+    padding: 1rem;
+    padding-left: 1.5rem;
+    border-radius: 1rem;
+
+    table {
+    
+        * {
+            padding-top: 0.2rem;
+            padding-bottom: 0.2rem;
+        }
+
+        thead {
+            border-bottom: 1px solid $color_blue;
+        }
+
+        tbody > *:not(:last-child) {
+            border-bottom: 0.5px solid $color_light_blue;
+        }
+
+        a {
+            color: $color_blue;
+        
+            &.link-underline {
+                text-decoration-color: $color_blue !important;
+            }
+
+            &.link-underline:hover, &:visited:not(.btn) {
+                color: #857be0;
+                text-decoration-color: #857be0 !important;
+            }
+            
+        }
+    }
+
+}
+
+.sidebar {
+
+    * {
+        color: $color_blue;
+
+        &:not(:first-of-type):hover {
+            background-color: $color_purple;
+            border-radius: 0.5rem;
+        }
+    }
+
+    .nav-link:hover:not(.active) {
+        color: $color_blue;
+    }
+
+    a {
+        border-radius: 0.5rem;
+
+        &.active {
+            background-color: $color_blue;
+            color: white;
+        }
+
+    }
+
+}
